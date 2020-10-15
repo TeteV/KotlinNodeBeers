@@ -19,12 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 
 // this is for users
-//db.sequelize.sync();
+db.sequelize.sync();
 
 // develop time only 
-db.sequelize.sync({ force: true }).then(() => {
+/*db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
-});
+});*/
 
 require("./app/routes/bicycle.routes")(app);
 

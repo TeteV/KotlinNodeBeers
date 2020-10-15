@@ -1,12 +1,12 @@
 const { bicycles } = require("../models");
 const db = require("../models");
-const bicycle = db.bicycles;
+const Bicycle = db.bicycles;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new bicycle
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.brand|| !req.body.model) {
+  if (!req.body.brand || !req.body.model) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -48,7 +48,29 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  let id = req.params.id;
+  Bicycle.findByPk(id)
+    .then(data => {
+      res.send(data);
+      if (!data){
+        res.status(400).send({
+          message:"No bicycle with this ID"
+        })
+      }
+      return;
+    })
+    .catch(err=>{
+      res.status(500).send({
+        message: 
+        err.message || "Someerror ocurred while retrieving ID"
+      });
+      return;
+    });
+    //este sale mal
+    /*res.send (400).send({
+      message: 
+      "Id not found"
+    });*/
 };
 
 // Update a Tutorial by the id in the request
