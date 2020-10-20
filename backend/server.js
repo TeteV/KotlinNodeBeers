@@ -5,12 +5,8 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8080"
+    origin: "*"
 };
-
-
-
-//app.use(express.static(__dirname + '/img'));
 
 app.use(cors(corsOptions));
 
@@ -23,16 +19,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 
 // this is for users
-db.sequelize.sync();
+//db.sequelize.sync();
 
 // develop time only 
-/*db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
-});*/
+});
 
 app.use(express.static('public'));
 
-require("./app/routes/bicycle.routes")(app);
+require("./app/routes/cerveza.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

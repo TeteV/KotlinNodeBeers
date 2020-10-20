@@ -1,9 +1,9 @@
-const { bicycles } = require("../models");
+const { cervezas } = require("../models");
 const db = require("../models");
-const Bicycle = db.bicycles;
+const Cerveza = db.cervezas;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new bicycle
+// Create and Save a new cerveza
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.brand || !req.body.model) {
@@ -13,77 +13,68 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a bicycle object
-  const bicycle = {
+  // Create a cerveza object
+  const cerveza = {
     brand: req.body.brand,
     model: req.body.model
   };
 
   // Save Tutorial in the database
-  Bicycle.create(bicycle)
+  Cerveza.create(cerveza)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the bicycle."
+          err.message || "Some error occurred while creating the cerveza."
       });
     });
 };
 
 // Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => { 
-    bicycles.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
+exports.findAll = (req, res) => {
+  cervezas.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
       });
+    });
 };
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
   let id = req.params.id;
-  Bicycle.findByPk(id)
+  Cerveza.findByPk(id)
     .then(data => {
-      res.send(data);
-      if (!data){
+      if (!data) {
         res.status(400).send({
-          message:"No bicycle with this ID"
+          message: "No cerveza with this ID"
         })
       }
+      res.send(data);
       return;
     })
-    .catch(err=>{
+    .catch(err => {
       res.status(500).send({
-        message: 
-        err.message || "Someerror ocurred while retrieving ID"
+        message:
+          err.message || "Someerror ocurred while retrieving ID"
       });
       return;
     });
-    //este sale mal
-    /*res.send (400).send({
-      message: 
-      "Id not found"
-    });*/
 };
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+
 };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-  
-};
