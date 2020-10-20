@@ -8,6 +8,10 @@ var corsOptions = {
     origin: "http://localhost:8080"
 };
 
+
+
+//app.use(express.static(__dirname + '/img'));
+
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -25,6 +29,8 @@ db.sequelize.sync();
 /*db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });*/
+
+app.use(express.static('public'));
 
 require("./app/routes/bicycle.routes")(app);
 
