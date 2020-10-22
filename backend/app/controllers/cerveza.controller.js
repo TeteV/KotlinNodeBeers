@@ -107,7 +107,7 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete beer with id=${id}. Maybe Bicycle was not found!`
+          message: `Cannot delete beer with id=${id}`
         });
       }
     })
